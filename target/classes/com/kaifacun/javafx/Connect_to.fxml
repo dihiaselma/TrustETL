@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane style="-fx-background-color: #FEFDF0;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kaifacun.javafx.QueryExtractor">
+   <children>
+      <RadioButton fx:id="RadioFile" layoutX="44.0" layoutY="70.0" mnemonicParsing="false" text="From log file">
+         <font>
+            <Font name="Bell MT" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="RadioDirectory" layoutX="208.0" layoutY="70.0" mnemonicParsing="false" text="Frome logs Directory ">
+         <font>
+            <Font name="Bell MT" size="14.0" />
+         </font>
+      </RadioButton>
+      <Text layoutX="21.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the SPARQL log files ">
+         <font>
+            <Font name="Bell MT Bold" size="14.0" />
+         </font>
+      </Text>
+      <Button layoutX="307.0" layoutY="123.0" minWidth="53.0" mnemonicParsing="false" onAction="#connect" prefHeight="26.0" prefWidth="74.0" text="Select" textAlignment="CENTER">
+         <font>
+            <Font name="Bell MT" size="12.0" />
+         </font></Button>
+      <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="414.0" layoutY="7.0">
+         <image>
+            <Image url="@images/link-vector-icon-png_262140.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="textfieldconect" layoutX="41.0" layoutY="124.0" prefHeight="25.0" prefWidth="259.0" />
+      <Button fx:id="validateConnect" layoutX="412.0" layoutY="164.0" minWidth="37.0" mnemonicParsing="false" onAction="#connect22" prefHeight="26.0" prefWidth="37.0" text="OK" textAlignment="CENTER">
+         <font>
+            <Font name="Bell MT" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
