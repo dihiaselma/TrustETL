@@ -62,7 +62,7 @@ public class AppJava {
 
 
     public void insertshape(int id, String sub, String pred, String obj) {
-        String sql = "INSERT INTO query_shcema (ID, sub, pred, obj) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO query_shcemaDBP (ID, sub, pred, obj) VALUES (?,?,?,?);";
 
         try {Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql) ;
@@ -107,14 +107,15 @@ public class AppJava {
         }
     }
 
-    public void insertqueryrobot(int id, String query, String topic) {
-        String sql = "INSERT INTO cleanRobotnew (id,topic, query) VALUES (?,?,?);";
+    public void insertqueryrobot(int id, String ip,  String date, String topic) {
+        String sql = "INSERT INTO cleanRobotdbp (id, ip, date, topic) VALUES (?,?,?,?);";
 
         try {Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql) ;
             pstmt.setInt(1, id);
-            pstmt.setString(2, topic);
-            pstmt.setString(3, query);
+            pstmt.setString(2, ip);
+            pstmt.setString(3, date);
+            pstmt.setString(4, topic);
             pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -253,7 +254,7 @@ public class AppJava {
                 "  FROM referent;";/* +
                 "where type='Construct'";*/
         ResultSet rs=null;
-        String E[]=new String[236];
+        String E[]=new String[270];
         try {
             Connection conn = this.connect();
             Statement stmt  = conn.createStatement();
@@ -357,7 +358,7 @@ public class AppJava {
 
         String sql = "select count(*) as nb from " +
                 "(select min(date) minn, max(date) maxx,  Substr(date,0,11) as datee, strftime('%s',max(date)) - strftime('%s',min(date)) as time, count(id) as cnt, ip\n" +
-                "from cleanRobot\n" +
+                "from cleanRobotdbp\n" +
                 "group by Substr(date,0,11), ip\n" +
                 "having count(id)>=1000 and strftime('%s',max(date)) - strftime('%s',min(date))<100000) as fct ;";
 
@@ -417,7 +418,7 @@ public class AppJava {
     public String[] Selectbotqueries2(int nb){
 
         String sql = "select min(date) minn, max(date) maxx,  Substr(date,0,11) as datee, strftime('%s',max(date)) - strftime('%s',min(date)) as time, count(id) as cnt, ip\n" +
-                "from cleanRobot\n" +
+                "from cleanRobotdbp\n" +
                 "group by Substr(date,0,11), ip\n" +
                 "having count(id)>=1000 and strftime('%s',max(date)) - strftime('%s',min(date))<100000;";
 
@@ -438,6 +439,35 @@ public class AppJava {
                 E[i+1]=min;
                 E[i+2]=max;
                 i=i+3;
+
+            }
+            conn.close();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return E;
+    }
+
+
+    public Collection<String> SelectIDbot(String ip, String min, String max){
+
+        String sql = "SELECT id FROM cleanRobotdbp\n" +
+                "WHERE ip = '"+ip+"' AND date>= '"+min+"'  AND date<='"+max+"';";
+
+        ResultSet rs=null;
+        Collection<String> E = new ArrayList<String>();
+        try {
+            Connection conn = this.connect();
+            Statement stmt  = conn.createStatement();
+            rs    = stmt.executeQuery(sql);
+
+            int i=0;
+            while(rs.next()){
+                String ipp =rs.getString("id");
+
+                E.add(ipp);
+
 
             }
             conn.close();
@@ -485,7 +515,7 @@ public class AppJava {
                 "FROM ip_detection;";
 
         ResultSet rs=null;
-        String E[]=new String[1846];
+        String E[]=new String[1850];
         try {
             Connection conn = this.connect();
             Statement stmt  = conn.createStatement();
@@ -539,8 +569,8 @@ public class AppJava {
                 " from \n" +
                 " (\n" +
                 "  SELECT count(b.ID) as ct, b.ID as id, a.topic        \n" +
-                "  FROM query_shcema as b\n" +
-                "  left join cleanRobotnew as a\n" +
+                "  FROM query_shcemaSCH as b\n" +
+                "  left join cleanRobotsch as a\n" +
                 "  on a.id=b.ID\n" +
                 "  where (pred<>'-' or sub<>'-' or obj<>'-')\n" +
                 "  and a.topic='"+topic+"'\n" +
@@ -549,7 +579,7 @@ public class AppJava {
                 "  ) as aa\n" +
                 "  \n" +
                 "left join \n" +
-                "( select * from  query_shcema where (pred<>'-' or sub<>'-' or obj<>'-')) as bb\n" +
+                "( select * from  query_shcemaSCH where (pred<>'-' or sub<>'-' or obj<>'-')) as bb\n" +
                 "on aa.id=bb.id\n"
                 ;
 

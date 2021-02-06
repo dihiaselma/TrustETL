@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/MDFromQueryLogs/AppJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/MDFromQueryLogs/AppJava.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/QueryExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/QueryExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/GUI_TETL.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/GUI_TETL.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/Connect_to.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/Connect_to.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/GUI_TETL.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/GUI_TETL.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/MDFromQueryLogs/AppJava.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/MDFromQueryLogs/AppJava.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/QueryExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kaifacun/javafx/QueryExtractor.class" afterDir="false" />
+    </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -11,6 +24,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/TrustETL_v1_1$Main.ic" NAME="Main Coverage Results" MODIFIED="1608072497556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.kaifacun.javafx.*</FILTER>
+    </SUITE>
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -99,23 +117,93 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1466911371">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.82" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="105699758">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="16" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.110" value="1" />
+          <entry key="project.open.time.168" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.40" value="1" />
+          <entry key="project.open.time.42" value="1" />
+          <entry key="project.open.time.54" value="1" />
+          <entry key="project.open.time.55" value="1" />
+          <entry key="project.open.time.56" value="1" />
+          <entry key="project.open.time.68" value="1" />
+          <entry key="project.open.time.71" value="1" />
+          <entry key="project.open.time.72" value="2" />
+          <entry key="project.open.time.75" value="1" />
+          <entry key="project.open.time.88" value="1" />
+          <entry key="project.open.time.93" value="1" />
+          <entry key="project.opened" value="16" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="fxml" value="29" />
+          <entry key="java" value="3662" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="3662" />
+          <entry key="XML" value="29" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="1" />
+          <entry key="fxml" value="1" />
+          <entry key="java" value="4" />
+          <entry key="vmoptions" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="1" />
+          <entry key="JAVA" value="4" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/QueryExtractor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="1352" column="66" lean-forward="true" selection-start-line="1352" selection-start-column="66" selection-end-line="1352" selection-end-column="66" />
+            <state relative-caret-position="415">
+              <caret line="1505" column="60" selection-start-line="1505" selection-start-column="60" selection-end-line="1505" selection-end-column="60" />
               <folding>
-                <element signature="e#17260#18294#0" />
-                <element signature="e#39449#40751#0" />
-                <element signature="e#40757#44964#0" />
-                <element signature="e#54148#54690#0" />
-                <element signature="e#54696#56502#0" />
+                <element signature="e#31845#31853#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#853#854#0" expanded="true" />
+                <element signature="e#881#882#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,54 +211,64 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/GUI_TETL.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="653" column="54" selection-start-line="653" selection-start-column="54" selection-end-line="653" selection-end-column="54" />
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="340" column="83" selection-start-line="340" selection-start-column="83" selection-end-line="340" selection-end-column="83" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>correctquerie</find>
-      <find>afficher2</find>
-      <find>text2&quot;</find>
-      <find>unbotedQueries</find>
-      <find>Selectbotqueries</find>
-      <find>call</find>
+      <find>Collection</find>
+      <find>COUNTselectbotqueries2</find>
+      <find>Selectbotqueries2</find>
+      <find>SelectIDbot</find>
+      <find>cleanRobot</find>
+      <find>cleanRobotsch</find>
+      <find>Robotque</find>
+      <find>schema</find>
       <find>selectshape</find>
-      <find>insertqueryrobot</find>
-      <find>RobotQueryCleaner</find>
-      <find>cleanRobotnew</find>
-      <find>text13</find>
-      <find>12&quot;</find>
-      <find>13&quot;</find>
-      <find>expert</find>
-      <find>ALL</find>
-      <find>Ctest</find>
-      <find>vul</find>
-      <find>dedup</find>
+      <find>schemaR</find>
+      <find>business</find>
+      <find>selectIPType()</find>
+      <find>VulnerableQueryEliminator</find>
+      <find>RobotQ</find>
+      <find>AnalyticStandardQuerySelector</find>
+      <find>ComplexityFilter</find>
+      <find>shared</find>
+      <find>correctquerie()</find>
+      <find>hash</find>
+      <find>collec</find>
+      <find>semantic</find>
+      <find>sch</find>
+      <find>delete</find>
+      <find>connect</find>
+      <find>number</find>
+      <find>DisplayTable</find>
+      <find>nbExtractedQueries</find>
+      <find>afficher1</find>
       <find>aff</find>
-      <find>rate</find>
-      <find>convert</find>
-      <find>syntax</find>
-      <find>synta</find>
-      <find>enr</find>
-      <find>join</find>
-      <find>logs join</find>
-      <find>logs enr</find>
-      <find>syntacticCo</find>
-      <find>affic</find>
-      <find>linech</find>
+      <find>urll</find>
     </findStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -192,12 +290,13 @@
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Save to SQLIte.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Save to File.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Expert Filter.fxml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Business OR Academic.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Analytic OR Standard.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Topic Selector.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/MDFromQueryLogs/AppJava.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/GUI_TETL.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/test.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/QueryExtractor.java" />
       </list>
     </option>
@@ -219,9 +318,12 @@
       <select />
     </treeState>
   </component>
+  <component name="MavenRunner">
+    <option name="vmOptions" value="-Xmx512m" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="675" />
     <option name="y" value="-8" />
     <option name="width" value="699" />
     <option name="height" value="744" />
@@ -231,6 +333,15 @@
       <profile-state>
         <expanded-state>
           <State />
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>JVM languages</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
           <State>
             <id>XML</id>
           </State>
@@ -243,6 +354,7 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -252,35 +364,49 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="TrustETL_v1.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrustETL_v1.1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
@@ -290,6 +416,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -302,14 +429,14 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1596497925620" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1612572376441" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/Project12" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/CubeQE_IHM" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -329,7 +456,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -370,6 +497,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.kaifacun.javafx.test" />
+      <module name="GUI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.kaifacun.javafx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
@@ -399,6 +540,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -422,17 +572,34 @@
       <workItem from="1596227259276" duration="4672000" />
       <workItem from="1596291756338" duration="45896000" />
       <workItem from="1596453097251" duration="24171000" />
+      <workItem from="1607372539241" duration="155000" />
+      <workItem from="1607372783863" duration="2218000" />
+      <workItem from="1607719255709" duration="20000" />
+      <workItem from="1607723244225" duration="4316000" />
+      <workItem from="1607778995152" duration="15272000" />
+      <workItem from="1607878261842" duration="5665000" />
+      <workItem from="1607952605490" duration="13207000" />
+      <workItem from="1608064165063" duration="180000" />
+      <workItem from="1608065852328" duration="918000" />
+      <workItem from="1608069003645" duration="2681000" />
+      <workItem from="1608138364214" duration="2041000" />
+      <workItem from="1608326142538" duration="5034000" />
+      <workItem from="1609710319645" duration="54000" />
+      <workItem from="1611091376834" duration="3670000" />
+      <workItem from="1611173199381" duration="960000" />
+      <workItem from="1612544468893" duration="10379000" />
+      <workItem from="1612559778742" duration="10162000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131336000" />
+    <option name="totallyTimeSpent" value="208268000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.20121029" />
-      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1323752" />
+      <window_info id="Structure" order="1" weight="0.24962178" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -440,7 +607,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32874617" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22131148" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.05901639" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -464,6 +631,7 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32980332" />
+      <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32980332" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.19818456" />
@@ -620,36 +788,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Topic Selector.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="69" column="96" lean-forward="true" selection-start-line="69" selection-start-column="96" selection-end-line="69" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/MDFromQueryLogs/AppJava.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="545" column="37" lean-forward="true" selection-start-line="545" selection-start-column="37" selection-end-line="545" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -669,24 +812,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/idea64.exe.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="30" lean-forward="true" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/MDFromQueryLogs/AppJava.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="226" column="63" selection-start-line="226" selection-start-column="8" selection-end-line="226" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/Connect_to.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/jena/jena-arq/3.9.0/jena-arq-3.9.0.jar!/org/apache/jena/riot/system/ErrorHandlerFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="239" selection-start-line="239" selection-end-line="239" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/com/kaifacun/javafx/GUI_TETL.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="653" column="54" selection-start-line="653" selection-start-column="54" selection-end-line="653" selection-end-column="54" />
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="340" column="83" selection-start-line="340" selection-start-column="83" selection-end-line="340" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#881#882#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/kaifacun/javafx/QueryExtractor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1352" column="66" lean-forward="true" selection-start-line="1352" selection-start-column="66" selection-end-line="1352" selection-end-column="66" />
+        <state relative-caret-position="415">
+          <caret line="1505" column="60" selection-start-line="1505" selection-start-column="60" selection-end-line="1505" selection-end-column="60" />
           <folding>
-            <element signature="e#17260#18294#0" />
-            <element signature="e#39449#40751#0" />
-            <element signature="e#40757#44964#0" />
-            <element signature="e#54148#54690#0" />
-            <element signature="e#54696#56502#0" />
+            <element signature="e#31845#31853#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -709,7 +899,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited>Detection</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

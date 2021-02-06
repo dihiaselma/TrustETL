@@ -28,6 +28,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.jena.base.Sys;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.Query;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -192,6 +193,9 @@ public class QueryExtractor {
     @FXML RadioButton RBtExp3;
     @FXML RadioButton RBtExp4;
 
+    @FXML RadioButton delete;
+    @FXML RadioButton trust;
+
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis ;
     @FXML private LineChart<String, Number> linechart1 ;
@@ -201,10 +205,23 @@ public class QueryExtractor {
     @FXML TableColumn<String[], String> cl2;
     @FXML TableColumn<String[], String> cl3;
 
+    @FXML Text tx1;
+    @FXML Text tx2;
+    @FXML Text tx3;
+    @FXML Text tx4;
+
     /*Other variables*/
     private static ILexicalDatabase db = new NictWordNet(); //wordnet lexical DB
-    private static int nbExtractedQueries=139766;
+    private static int nbExtractedQueries=141941;
+    private static String urllog="";
+    private static Integer [] trustdegredd=new Integer [nbExtractedQueries];
+    //private static String pathORG="D:\\logs_selected\\ScholarlyData";
+    //private static String pathORG="D:\\logs_selected\\MicrosoftAcademicKG";
+    //private static String pathORG="D:\\logs_selected\\DBpedia_Academic";
 
+    private static String pathORG="D:\\logs_selected\\LC_QUAD";
+    //private static String pathORG="D:\\logs_selected\\NSpM";
+    //private static String pathORG="D:\\logs_selected\\QALD";
 
 /*************** The FrontEnd of our Trust ETL solution *****************************/
     /*Windows displaying on checkbox click*/
@@ -353,7 +370,7 @@ public class QueryExtractor {
         RadioButton[] radio = {Anabtn1, Anabtn2, Anabtn3};
         for(int i=0;i<3;i++) {
             if (radio[i].isSelected()) {
-                CTest.add("Business or Academic: "+radio[i].getText());
+                CTest.add("Analytic or Standard: "+radio[i].getText());
             }
         }
         SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\ListOperators.txt", CTest);
@@ -439,6 +456,7 @@ public class QueryExtractor {
                     String[] x = p.getValue();
                     return new SimpleStringProperty(x != null && x.length>1 ? x[1] : "<no value>");
                 });
+
                 cl3.setCellValueFactory((p)->{
                     String[] x = p.getValue();
                     return new SimpleStringProperty(x != null && x.length>1 ? x[2] : "<no value>");
@@ -475,31 +493,31 @@ public class QueryExtractor {
 
     public void afficher1(MouseEvent event ) throws IOException {//display info about connectTo
         title.setText("Connect To");
-        int trusted=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log").size();
-        int total=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log").size();
+        int trusted=SharedFunctions.ReadFile(urllog).size();
+        int total=SharedFunctions.ReadFile(urllog).size();
         info1.setText(""+trusted);
         info2.setText(""+(total));
         info3.setText(""+((total-total)/total));
         info4.setText(""+((total-total)/total));
-        Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log");
+        Collection<String> C = SharedFunctions.ReadFile(urllog);
         DisplayTable2(C);
 
     }
 
-    public void afficher3(MouseEvent event ) throws IOException {//display info about connectTo
+    public void afficher3(MouseEvent event) throws IOException {//display info about connectTo
         title.setText("Query Extractor");
-        int trusted=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Query Extractor.txt").size();
-        int total=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log").size();
+        int trusted=SharedFunctions.ReadFile(pathORG+"\\Query Extractor.txt").size();
+        int total=SharedFunctions.ReadFile(urllog).size();
         info1.setText(""+trusted);
         info2.setText(""+(total-trusted));
         info3.setText(""+((total-total)/total));
         info4.setText(""+((total-total)/total));
-        Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Query Extractor.txt");
+        Collection<String> C = SharedFunctions.ReadFile(pathORG+"\\Query Extractor.txt");
         DisplayTable(C);
 
     }
 
-    public void afficher2(MouseEvent event ) throws IOException{//display info about other operations
+    public void afficher2(MouseEvent event) throws IOException{//display info about other operations
         Text[] text = {text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17};
         String source2 = event.getPickResult().getIntersectedNode().getId();
         int indice=0;
@@ -694,7 +712,7 @@ public class QueryExtractor {
         Collection<String> C = SharedFunctions.ReadFile(path);/*Read log file*/
         System.out.println("******************************Début query extractor*********************************************");
         for (String line : C) {
-            if ((line.toLowerCase().contains("select")) && (line.toLowerCase().contains("query")) && (line.toLowerCase().contains("describe") == false) && (line.toLowerCase().contains("ask") == false)) {
+            if ( ((line.toLowerCase().contains("select")) || (line.toLowerCase().contains("construct"))) && (line.toLowerCase().contains("query")) && (line.toLowerCase().contains("describe") == false) && (line.toLowerCase().contains("ask") == false)) {
 
                 /*le ID de la requete*/
                 ap++;
@@ -713,12 +731,12 @@ public class QueryExtractor {
                 if (line.contains("HTTP/1.0"))
                     hit = line.substring(line.indexOf("HTTP/1.0") + 10, line.indexOf("HTTP/1.0") + 13);
 
-                String NewQuery = (ap + "dihia" + line+ "dihia"+""+"dihia" + IP + "dihia" + dateV + "dihia" + hit );
+                String NewQuery = (ap + "dihia" + line+ "dihia"+ IP + "dihia" + dateV + "dihia" + hit );
                 CTest.add(NewQuery);
             }
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Query Extractor.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Query Extractor.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Query Extractor.txt", CTest);
+        String pathReturned = pathORG+"\\Query Extractor.txt";
         nbExtractedQueries=CTest.size();
         System.out.println("******************************Fin query extractor*********************************************");
         return (pathReturned);
@@ -736,160 +754,212 @@ public class QueryExtractor {
             System.out.println(splitted[0]);
 
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Format Converter.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Format Converter.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Format Converter.txt", CTest);
+        String pathReturned = pathORG+"\\Format Converter.txt";
         System.out.println("******************************Fin Format Convertor*********************************************");
         return (pathReturned);
 
     }
 
-    public static String RobotQueryCleaner() {
+    public static String RobotQueryCleaner(String delete) {
         Collection<String> CTest = new ArrayList<String>();
+        Collection<String> CTrustDeg= new ArrayList<String>();
         AppJava app = new AppJava();
         System.out.println("******************************Début Robot Cleaner*********************************************");
         /**** Insert query with topics  into DB*/
-        /*Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Format Converter.txt");
-        for (String line : C) {
-            String[] splitted = line.split("dihia");
-            int id= Integer.parseInt(splitted[0]);
-            String query=splitted[1];
-            String ip=splitted[3];
-            String time=splitted[4];
-            String topic="";
-            app.insertqueryrobot(id,ip,time,topic,query);
-            System.out.println(id);
-        }*/
 
-        /*String[] a = app.Selectbotqueries(app.COUNTselectbotqueries());
-        System.out.println(a.length);
-        for (int o = 0; o < a.length; o = o + 3) {
-            app.delete(a[o], a[o + 1], a[o + 2]);
-        }*/
 
         String[] aa = app.Selectbotqueries2(app.COUNTselectbotqueries2());
+        System.out.println(app.COUNTselectbotqueries2());
+
+        Collection<String> C = SharedFunctions.ReadFile("D:\\logs_selected\\DBpedia_Academic\\Expertise Filter.txt");
+        //Collection<String> id=new ArrayList<String>();
+        Collection<String> id_robot=new ArrayList<String>();
         for (int o = 0; o < aa.length; o = o + 3) {
-            app.delete(aa[o], aa[o + 1], aa[o + 2]);
+            Collection<String> id=app.SelectIDbot(aa[0], aa[1], aa[2]);
+            for (String s:id) id_robot.add(s);
+        }
+        int cnt=0;
+        for(String line: C){
+
+            String bot="NotRobot";
+            for (String s:id_robot)
+            {
+                if(line.split("dihia")[0].equals(s)) bot="Robot";
+            }
+            System.out.println(line.split("dihia")[0] +"---"+bot);
+
+            if(delete.equals("yes")){
+                if(!bot.equals("Robot")){
+                    String parsedQuery = (line + "dihia" +bot);
+                    CTest.add(parsedQuery);
+                }
+
+            }
+            else{
+                String parsedQuery = (line + "dihia" +bot);
+                CTest.add(parsedQuery);
+                trustdegredd[cnt]=trustdegredd[cnt]+1;
+            }
+            cnt++;
         }
 
-        Collection<String[]> Colect =app.unbotedQueries();
-        for(String[] val:Colect){ //id, query, ip
-            String parsedQuery = (val[0] + "dihia"+ val[1]+ "dihia" + "" + "dihia" +val[2]);
-            CTest.add(parsedQuery);
-        }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Robot Query Cleaner.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Robot Query Cleaner.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Robot Query Cleaner.txt", CTest);
+        String pathReturned = pathORG+"\\Robot Query Cleaner.txt";
         System.out.println("******************************Fin Robot Cleaner*********************************************");
         return (pathReturned);
-
     }
 
-    public static String BusinessAcademicQueryExtractor(String path, String type) {
+    public static String BusinessAcademicQueryExtractor(String path, String type, String delete) {
         AppJava app = new AppJava();
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
         System.out.println("******************************Début Busines/Academic cleaner*********************************************");
         String[] a = app.selectIPType();
-        String business = "none";
+        int cnt=0;
         for (String line : C) {
+            String business = "none";
             String[] splitted = line.split("dihia");
-            String ip = splitted[3];
-
-            for (int o = 0; o < 1846; o = o + 2) {
+            String ip = splitted[2];
+            System.out.println(ip);
+            for (int o = 0; o < 1850; o = o + 2) {
                 String val1 = a[o];
-
                 if (val1.equals(ip)) {
-
                     if (a[o + 1].equals("university")) business = "Academic";
                     else business = "Business";
                 }
             }
 
-            if(!type.contains("All")) {
-                if(type.contains(business)){
-                String SyntaxQuery = (splitted[0] + "dihia" + splitted[1] + "dihia" + business+ "dihia" + splitted[3] );
-                CTest.add(SyntaxQuery);
-            }}
-            else{
-                String SyntaxQuery = (splitted[0] + "dihia" + splitted[1] + "dihia" + business+ "dihia" + splitted[3] );
-                CTest.add(SyntaxQuery);
+            if(delete.equals("yes")){
+                if(!type.contains("All")) {
+                    if(type.contains(business)){
+                        String SyntaxQuery = (line + "dihia" + business);
+                        CTest.add(SyntaxQuery);
+                    }}
+                else{
+
+                        String SyntaxQuery = (line + "dihia" + business);
+                        CTest.add(SyntaxQuery);
+                    }
+
             }
+            else{
+                int val=0;
+                String SyntaxQuery = (line + "dihia" + business);
+                CTest.add(SyntaxQuery);
+                if(!type.contains("All")) {
+                    if (type.contains(business)) {
+                        val = 1;
+                    }
+                }
+                else val = 1;
+                trustdegredd[cnt]=trustdegredd[cnt]+val;
+            }
+            cnt++;
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Business-Academic Query Extractor.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Business-Academic Query Extractor.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\5-Business-Academic Query Extractor.txt", CTest);
+        String pathReturned =pathORG+ "\\5-Business-Academic Query Extractor.txt";
         System.out.println("******************************Fin Busines/Academic cleaner*********************************************");
         return (pathReturned);
 
     }
 
-    public static String VulnerableQueryEliminator(String path) {
+    public static String VulnerableQueryEliminator(String path, String delete) {
         AppJava app = new AppJava();
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
         Collection<String> IPs = app.selectBlacklist();
         System.out.println("******************************Début Vulnerable queries*********************************************");
+        int cnt=0;
         for (String line : C) {
             String[] splitted = line.split("dihia");
-            String ip = splitted[3];
+            String ip = splitted[2];
             String Vul;
 
-            if (IPs.contains(ip)) {
-                Vul = "Vulnerable";
-            } else Vul = "UNVulnerable";
-
-
-
-            if(Vul.equals("UNVulnerable"))
+            if (IPs.contains(ip)) Vul = "Vulnerable";
+            else Vul = "UNVulnerable";
+            /*if(Vul.equals("UNVulnerable"))
             {String SyntaxQuery = (splitted[0] + "dihia" + splitted[1] + "dihia" + "");
-            CTest.add(SyntaxQuery);}
-            else System.out.println(splitted[0]);
+            CTest.add(SyntaxQuery);}*/
+            if(delete.equals("yes")){
+                if(Vul.equals("UNVulnerable")){
+                    String SyntaxQuery = (line + "dihia" + Vul);
+                    CTest.add(SyntaxQuery);
+                    System.out.println(splitted[0]);
+                }
+            }
+            else {
+                String SyntaxQuery = (line + "dihia" + Vul);
+                CTest.add(SyntaxQuery);
+                System.out.println(splitted[0]);
+                trustdegredd[cnt]=trustdegredd[cnt]+1;
+            }
+            cnt++;
         }
 
-        //SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Vulnerable Query Eliminator.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Vulnerable Query Eliminator.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Vulnerable Query Eliminator.txt", CTest);
+        String pathReturned = pathORG+"\\Vulnerable Query Eliminator.txt";
         System.out.println("******************************Fin Vulnerable queries*********************************************");
         return (pathReturned);
-
     }
 
-    public static String Deduplicator(String path) {
+    public static String Deduplicator(String path, String delete) {
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> dedup = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
+        int cnt=0;
         for (String line : C) {
             String[] splitted = line.split("dihia");
+            System.out.println(splitted[0]);
             String query = splitted[1];
             String vide = viderQuery(query);
+            String deduplic= " ";
             if (!dedup.contains(vide)) {
                 dedup.add(vide);
-                String SyntaxQuery = (splitted[0] + "dihia" + query + "dihia" + "");
-                CTest.add(SyntaxQuery);
+                deduplic="Unique";
             }
+            else{
+                deduplic="Duplicate";
+            }
+
+            if(delete.equals("yes")){
+                if(deduplic.equals("Unique")){
+                    String SyntaxQuery = (line + "dihia" + deduplic);
+                    CTest.add(SyntaxQuery);
+                }
+            }
+            else{
+                String SyntaxQuery = (line + "dihia" + deduplic);
+                CTest.add(SyntaxQuery);
+                trustdegredd[cnt]=trustdegredd[cnt]+1;
+            }
+            cnt++;
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Deduplicator2.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Deduplicator2.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Deduplicator.txt", CTest);
+        String pathReturned = pathORG+"\\Deduplicator.txt";
         return (pathReturned);
 
     }
 
-    public static String SyntacticCorrector(String path) {
+    public static String SyntacticCorrector(String path, String delete) {
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
         String SyntValid = "";
         String corrigé = "";
+        int cnt=0;
         for (String line : C) {
             String[] splitted = line.split("dihia");
             String Query = FixSynt(splitted[1]);
             Query q = QueryFixer.toQuery(Query);
             if (q == null) {
-                SyntValid = "Non";
+                SyntValid = "NonSyntax";
             } else {
-                SyntValid = "Oui";
+                SyntValid = "OuiSyntax";
             }
 
             /* Correction syntaxique */
             Query = QueryFixer.get().fix(Query);
             if (Query.toLowerCase().contains("select") == false && Query.toLowerCase().contains("where") == false) {
-
                 int z = Query.indexOf("{");
                 if (z == -1) {
                     Query = "{" + Query;
@@ -906,118 +976,125 @@ public class QueryExtractor {
             q = QueryFixer.toQuery(Query);
 
             /* vérifier si c bien corrigé*/
-            if (q != null) {corrigé = "Oui";
-                String SyntaxQuery = (splitted[0] + "dihia" + Query + "dihia" + "");
-                CTest.add(SyntaxQuery);}
+            if (q != null) {corrigé = "Oui";}
             else {corrigé = "Non";}
 
-
+            if(delete.equals("yes")){
+                if(corrigé.equals("Oui")){
+                    String SyntaxQuery = (line + "dihia" + Query + "dihia" + SyntValid + "dihia" + corrigé);
+                    CTest.add(SyntaxQuery);
+                }
+            }
+            else{
+                String SyntaxQuery = (line + "dihia" + Query + "dihia" + SyntValid + "dihia" + corrigé);
+                CTest.add(SyntaxQuery);
+                trustdegredd[cnt]=trustdegredd[cnt]+1;
+            }
+            cnt++;
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Syntactic Corrector.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Syntactic Corrector.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Syntactic Corrector.txt", CTest);
+        String pathReturned = pathORG+"\\Syntactic Corrector.txt";
         return (pathReturned);
 
     }
 
-    public static String SemanticCorrector(String path) {
+    public static String SemanticCorrector(String path, String delete) {
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
+        int cnt=0;
         for (String line : C) {
             String[] splitted = line.split("dihia");
-            String SelectQ = splitted[1];
+            String SelectQ = splitted[10];
             OntModel ontologie = ModelFactory.createOntologyModel();
             OntologyFactory.readOntology("C:\\Users\\HP\\Desktop\\conference-ontology-alignments.owl", ontologie);
             StmtIterator it1 = ontologie.listStatements();
-            String semntic = "Non";
+            String semntic = "CorrectSemantic";
             while (it1.hasNext()) {
                 Statement st = it1.next();
                 if (SelectQ.contains(st.getSubject().toString()) && (st.getPredicate().toString().contains("equivalent"))) {
                     SelectQ = SelectQ.replaceAll(st.getSubject().toString(), st.getObject().toString());
-                    semntic = "Corrected";
+                    semntic = "CorrectedSemantic";
                 }
             }
-            String SyntaxQuery = (splitted[0] + "dihia" + SelectQ + "dihia" + "");
-            CTest.add(SyntaxQuery);
+            if(delete.equals("yes")){
+                if(semntic.equals("CorrectedSemantic")){
+                    String SyntaxQuery = (line + "dihia" + SelectQ + "dihia" + semntic);
+                    CTest.add(SyntaxQuery);
+                }
+            }
+            else{
+                String SyntaxQuery = (line + "dihia" + SelectQ + "dihia" + semntic);
+                CTest.add(SyntaxQuery);
+                trustdegredd[cnt]=trustdegredd[cnt]+1;
+            }
+
+        cnt++;
         }
 
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Semantic Corrector.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Semantic Corrector.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Semantic Corrector.txt", CTest);
+        String pathReturned = pathORG+"\\Semantic Corrector.txt";
         return (pathReturned);
 
     }
 
-    public static String TopicClustering(String path,Collection<String> topics) {
+    public static String TopicClustering(String path,Collection<String> topics, String delete) {
         AppJava app = new AppJava();
         Collection<String> CTest = new ArrayList<String>();
 
         Collection<String> C = SharedFunctions.ReadFile(path);
         String[] a = app.selectRef();
         String topic;
+        int cnt=0;
         for (String line : C) {
             String[] splitted = line.split("dihia");
-            String query = splitted[1];
+            //String query = splitted[1];
+            String query = splitted[0];
             topic = "None";
-            for (int o = 0; o < 236; o = o + 2) {
+            for (int o = 0; o < 270; o = o + 2) {
                 String val1 = a[o];
                 if (query.toLowerCase().contains(val1.toLowerCase())) {
                     topic = a[o + 1];
                 }
             }
-            if(topics.contains("All Topics")){
-                String SyntaxQuery = (splitted[0] + "dihia" + query + "dihia" + topic);
-                CTest.add(SyntaxQuery);
+            if(delete.equals("yes")){
+                if(topics.contains("All Topics")){
+                    String SyntaxQuery = (line + "dihia" + topic);
+                    CTest.add(SyntaxQuery);
+                }
+                else {
+                    if(topics.contains(topic)){
+                        String SyntaxQuery = (line + "dihia" + topic);
+                        CTest.add(SyntaxQuery);}
+                }
             }
-            else {
-            if(topics.contains(topic)){
-            String SyntaxQuery = (splitted[0] + "dihia" + query + "dihia" + topic);
-            CTest.add(SyntaxQuery);}
-        }}
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Topic Clustering.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Topic Clustering.txt";
+            else{
+                int val=0;
+
+                String SyntaxQuery = (line + "dihia" + topic);
+                CTest.add(SyntaxQuery);
+
+                if(topics.contains("All Topics")){
+                    val=1;
+                }
+                else {
+                    if(topics.contains(topic)){
+                        val=1;}
+                }
+                trustdegredd[cnt]=trustdegredd[cnt]+val;
+            }
+        cnt++;
+        }
+        SharedFunctions.WriteInFile(pathORG+"\\Topic Clustering.txt", CTest);
+        String pathReturned = pathORG+"\\Topic Clustering.txt";
         return (pathReturned);
     }
 
-    public static String SchemaRanking(String path,Collection<String> topics) throws SQLException {
+    public static String SchemaRanking(String path,Collection<String> topics, String delete) throws SQLException {
         AppJava app = new AppJava();
 
         /*insert topics into DB*/
        Collection<String> C = SharedFunctions.ReadFile(path);
-        /* for(String line:C){
-            app.insertqueryrobot(Integer.parseInt(line.split("dihia")[0]),line.split("dihia")[1],line.split("dihia")[2]);
-        }
-        /*insert shapes into DB*/
-        /*HashMap<Integer, String> cole = app.correctquerie();
-        for (int ii:cole.keySet()) {
-            String query = cole.get(ii);
-            Query maybeQuery = QueryFixer.toQuery(query);
-            if (maybeQuery != null) {
-                Element ee = maybeQuery.getQueryPattern();
-                if (ee instanceof ElementGroup) {
-                    if (((ElementGroup) ee).getElements().size() > 0) {
-                        Element e = ((ElementGroup) ee).getElements().get(0);
-                        if (e instanceof ElementPathBlock) {
-                            ElementPathBlock e1 = (ElementPathBlock) e;
-                            PathBlock pBlk = e1.getPattern();
-                            for (TriplePath tp : pBlk) {
-                                String sub = "-";
-                                String pred = "-";
-                                String obj = "-";
-                                if (tp.getSubject() != null) {
-                                    if (tp.getSubject().isVariable() == false) sub = tp.getSubject().toString();
-                                }
-                                if (tp.getPredicate() != null) {
-                                    if (tp.getPredicate().isVariable() == false) pred = tp.getPredicate().toString();
-                                }
-                                if (tp.getObject() != null) {
-                                    if (tp.getObject().isVariable() == false) obj =tp.getObject().toString();
-                                }
-                                app.insertshape(ii, sub, pred, obj);
-                                }
-                        }
-                    }
-                }
-            }
-        }*/
+
         System.out.println("*****************************Début************************************");
         Collection<String> Ctest = new ArrayList<>();
         for(String topic:topics) {
@@ -1051,27 +1128,42 @@ public class QueryExtractor {
             }
 
             //Collection<String> CC = SharedFunctions.ReadFile(path);
+            int cnt=0;
             for (String line : C) {
+                String schema="NotInformative";
                 if (colleID.contains(line.split("dihia")[0])){
-                    System.out.println("Yes contains: "+line.split("dihia")[0]);
-                    Ctest.add(line.split("dihia")[0]+"dihia"+line.split("dihia")[1]+"dihia"+line.split("dihia")[2]);
-            }}
+                    schema="Informative";
+            }
+
+                if(delete.equals("yes")){
+                    if(schema.equals("Informative")){
+                        Ctest.add(line+ "dihia"+ schema);
+                    }
+                }
+                else{
+                    Ctest.add(line+ "dihia"+ schema);
+                    trustdegredd[cnt]=trustdegredd[cnt]+1;
+                }
+            }
+            cnt++;
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Schema Ranking.txt", Ctest);
+        SharedFunctions.WriteInFile(pathORG+"\\Schema Ranking3.txt", Ctest);
         System.out.println("*****************************FIN************************************");
-        return ("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Schema Ranking.txt");
+        return (pathORG+"\\Schema Ranking.txt");
     }
 
-    public static String ComplexityFilter(String path, Collection<String> shapes, int depthmin, int depthmax) {
+    public static String ComplexityFilter(String path, Collection<String> shapes, int depthmin, int depthmax, String delete) {
 
         Collection<String> C = SharedFunctions.ReadFile(path);
         Collection<String> CTest = new ArrayList<String>();
-
+        int cnt=0;
         for (String line:C) {
-            String query = line.split("dihia")[1];
+            //String query = line.split("dihia")[10];
+            String query = line.split("dihia")[0];
+            System.out.println(query);
             Query maybeQuery = QueryFixer.toQuery(query);
             String shape = "star";
-            String expertise="";
+            String expertise="beginner";
             int depth =0;
             if (maybeQuery != null) {
                 Element ee = maybeQuery.getQueryPattern();
@@ -1098,7 +1190,7 @@ public class QueryExtractor {
                                     i=i+3;
                                 }
                                 if (triples[0].equals(triples[5]) || triples[2].equals(triples[3])) shape = "chain";
-                                else shape = "star-----";
+                                else shape = "star";
                             }
                             else {
                                 String triples[]=new String[depth*3];
@@ -1127,51 +1219,76 @@ public class QueryExtractor {
                     }
                 }
                 if(depth==0) {shape="star"; expertise="intermediate";}
-                if(shapes.contains(shape) && depth>=depthmin && depth<=depthmax){
-                String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + shape + "dihia" + expertise + "dihia" + depth);
-                CTest.add(SyntaxQuery);
-            }}
-            else {
-                String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + "Unkown" + "dihia" + "Unkown" + "dihia" + "Unkown");
-                CTest.add(SyntaxQuery);
-                System.out.println("I'm here");
-            }
+                if(delete.equals("yes")){
+                    if(shapes.contains(shape) && depth>=depthmin && depth<=depthmax){
+                        String SyntaxQuery = (line + "dihia" + shape + "dihia" + expertise + "dihia" + depth);
+                        CTest.add(SyntaxQuery);
+                    }
+                }
+                else{
+                    int val=0;
+                    String SyntaxQuery = (line + "dihia" + shape + "dihia" + expertise + "dihia" + depth);
+                    CTest.add(SyntaxQuery);
+                    if(shapes.contains(shape) && depth>=depthmin && depth<=depthmax){
+                        val=1;
+                    }
+                    trustdegredd[cnt]=trustdegredd[cnt]+val;
+                }
+                }
+        cnt++;
+
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Complexity Filter.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Complexity Filter.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Complexity Filter.txt", CTest);
+        String pathReturned = pathORG+"\\Complexity Filter.txt";
         System.out.println("****************************************** FIN ****************************************************");
         return (pathReturned);
     }
 
-    public static String ExpertiseFilter(String path, Collection<String> expertLevels){
+    public static String ExpertiseFilter(String path, Collection<String> expertLevels, String delete){
         Collection<String> C = SharedFunctions.ReadFile(path);
         Collection<String> CTest = new ArrayList<String>();
-
+        int cnt=0;
         for (String line:C) {
-            if(expertLevels.contains("All levels")){
-                String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + line.split("dihia")[3]);
-                CTest.add(SyntaxQuery);
-            }
-            else{
-                String level=line.split("dihia")[3];
-                if(expertLevels.contains(level)){
+            String level="";
+            if(delete.equals("yes")){
+                if(expertLevels.contains("All levels")){
                     String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + line.split("dihia")[3]);
                     CTest.add(SyntaxQuery);
+                }
+                else{
+                    level=line.split("dihia")[3];
+                    if(expertLevels.contains(level)){
+                        String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + line.split("dihia")[3]);
+                        CTest.add(SyntaxQuery);
+                }
+        }
+        }
+            else{
+                int val=0;
+                 String SyntaxQuery = (line.split("dihia")[0] + "dihia" + line.split("dihia")[1] + "dihia" + line.split("dihia")[3]);
+                 CTest.add(SyntaxQuery);
+                if(expertLevels.contains(level)){
+                    val=1;
+                }
+                trustdegredd[cnt]=trustdegredd[cnt]+val;
+
             }
+            cnt++;
         }
-        }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Expertise Filter.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Expertise Filter.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Expertise Filter.txt", CTest);
+        String pathReturned = pathORG+"\\Expertise Filter.txt";
         System.out.println("****************************************** FIN ****************************************************");
         return (pathReturned);
     }
 
-    public static String AnalyticStandardQuerySelector(String path, Collection<String> types) {
+    public static String AnalyticStandardQuerySelector(String path, Collection<String> types, String delete) {
         Collection<String> CTest = new ArrayList<String>();
         Collection<String> C = SharedFunctions.ReadFile(path);
+        int cnt=0;
         for (String line : C) {
-            String[] splitted = line.split("dihia");
-            String SelectQ = splitted[1];
+            //String[] splitted = line.split("dihia");
+            //String SelectQ = splitted[1];
+            String SelectQ = line;
             String querType;
             if (SelectQ.toLowerCase().contains("count(") || SelectQ.contains("sum(") || SelectQ.contains("min(") ||
                     SelectQ.contains("max(") || SelectQ.contains("avg(")) {
@@ -1180,25 +1297,37 @@ public class QueryExtractor {
                 querType = "Standard";
             }
 
-            if (types.contains("All Queries")) {
-                String SyntaxQuery = (splitted[0] + "dihia" + splitted[1] + "dihia" + querType);
-                CTest.add(SyntaxQuery);
-            } else {
-                if (types.contains(querType)) {
-                    String SyntaxQuery = (splitted[0] + "dihia" + splitted[1] + "dihia" + querType);
+            if (delete.equals("yes")) {
+                if (types.contains("All Queries")) {
+                    String SyntaxQuery = (line + "dihia" + querType);
                     CTest.add(SyntaxQuery);
+                } else {
+                    if (types.contains(querType)) {
+                        String SyntaxQuery = (line + "dihia" + querType);
+                        CTest.add(SyntaxQuery);
+                    }
                 }
             }
+            else{
+                int val=0;
+                String SyntaxQuery = (line + "dihia" + querType);
+                CTest.add(SyntaxQuery);
+                if (types.contains(querType)) {
+                  val=1;
+                }
+                trustdegredd[cnt]=trustdegredd[cnt]+val;
+            }
+            cnt++;
         }
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Analytic-Standard Query Selector.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Analytic-Standard Query Selector.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Analytic-Standard Query Selector.txt", CTest);
+        String pathReturned = pathORG+"\\Analytic-Standard Query Selector.txt";
         return (pathReturned);
     }
 
     public static String SaveToFile(String path) {
         Collection<String> C = SharedFunctions.ReadFile(path);
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\File Loader.txt", C);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\File Loader.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\File Loader.txt", C);
+        String pathReturned = pathORG+"\\File Loader.txt";
         return (pathReturned);
     }
 
@@ -1215,11 +1344,9 @@ public class QueryExtractor {
             }
 
         }
-
-        SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Logs enrichment.txt", CTest);
-        String pathReturned = "C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Logs enrichment.txt";
+        SharedFunctions.WriteInFile(pathORG+"\\Logs enrichment.txt", CTest);
+        String pathReturned = pathORG+"\\Logs enrichment.txt";
         return (pathReturned);
-
     }
 
     public static String Logsjoin(String path1,String path2) {
@@ -1242,34 +1369,36 @@ public class QueryExtractor {
             }
 
         }
-
-
         SharedFunctions.WriteInFile(path2, join);
         String pathReturned = path2;
         return (pathReturned);
-
     }
 
     public static void InsetQueriestoDB() {
         AppJava app = new AppJava();
-        Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\SemanticQueries.txt");
+        Collection<String> C = SharedFunctions.ReadFile("D:\\logs_selected\\DBpedia_Academic\\Expertise Filter.txt");
         for (String line : C) {
             String[] splitted = line.split("dihia");
             int id= Integer.parseInt(splitted[0]);
-            String ip=splitted[1];
-            String time=splitted[2];
-            String topic=splitted[8];
-            String query=splitted[11];
-            //app.insertqueryrobot(id,ip,time,topic,query);
+            String ip=splitted[2];
+            String time=splitted[3];
+            String topic=splitted[9];
+            //String query=splitted[10];
+            System.out.println(id +" dihia "+ ip +" dihia "+ time +" dihia "+ topic );
+            app.insertqueryrobot(id,ip,time,topic);
         }
 
     }
 
     public static void insertBGPintoDB() {
         AppJava app = new AppJava();
-        HashMap<Integer, String> col = app.correctquerie();
-        for (int ii:col.keySet()) {
-            String query = col.get(ii);
+        //HashMap<Integer, String> col = app.correctquerie();
+        //for (int ii:col.keySet()) {
+        Collection<String> C = SharedFunctions.ReadFile("D:\\logs_selected\\DBpedia_Academic\\Expertise Filter.txt");
+        for (String line : C) {
+            //String query = col.get(ii);
+            int ii= Integer.parseInt(line.split("dihia")[0]);
+            String query = line.split("dihia")[10];
             Query maybeQuery = QueryFixer.toQuery(query);
             if (maybeQuery != null) {
                 Element ee = maybeQuery.getQueryPattern();
@@ -1300,6 +1429,7 @@ public class QueryExtractor {
                                 if (tp.getObject() != null) {
                                     if (tp.getObject().isVariable() == false) obj =tp.getObject().toString();
                                 }
+                                System.out.println(ii +" dihia :" + sub+ " tt " +pred+ " tt "+obj);
                                 app.insertshape(ii, sub, pred, obj);
                             }
                         }
@@ -1313,14 +1443,73 @@ public class QueryExtractor {
 
 /*************** The Process Execution of our Trust ETL solution *****************************/
     public void TrustETLProcess(){
-        int trusted=6759;
-        int total=139766;
-        info1.setText(""+trusted);
-        info2.setText(""+(total-trusted));
-        info4.setText(""+ new DecimalFormat("##.##").format(((((float)nbExtractedQueries-(float)trusted)/(float)nbExtractedQueries)  *100)) +"%");
-        info3.setText(""+ new DecimalFormat("##.##").format(((((float)nbExtractedQueries-(float)total)  /(float)nbExtractedQueries)  *100))     +"%");
 
-        Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\File Loader.txt");
+        Collection<String> C=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\File Loader.txt");
+        Collection<String> C2=SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Format Converter.txt");
+
+
+
+
+        if (delete.isSelected()) {
+            //QueriesExtractor(path);
+            //formatConverter(path);
+            //RobotQueryCleaner("Yes");
+            //BusinessAcademicQueryExtractor(path,"All","Yes");
+            //VulnerableQueryEliminator(path,"Yes");
+            //Deduplicator(path,"Yes");
+            //SyntacticCorrector(path,"Yes");
+            //SemanticCorrector(path,"Yes");
+            //TopicClustering(path,C1,"Yes");
+            //SchemaRanking(path,"Yes");
+            //ComplexityFilter(path,C1, 0, 20,"Yes");
+            //ExpertiseFilter(path,C1,"Yes");
+            //AnalyticStandardQuerySelector(path, C1,"Yes");
+            int trusted = C.size();
+            int total = C2.size();
+            info1.setText("" + trusted);
+            info2.setText("" + (total - trusted));
+            info4.setText("" + new DecimalFormat("##.##").format(((((float) nbExtractedQueries - (float) trusted) / (float) nbExtractedQueries) * 100)) + "%");
+            info3.setText("" + new DecimalFormat("##.##").format(((((float) nbExtractedQueries - (float) total) / (float) nbExtractedQueries) * 100)) + "%");
+
+        }
+        else{
+            //QueriesExtractor(path);
+            //formatConverter(path);
+            //RobotQueryCleaner("No");
+            //BusinessAcademicQueryExtractor(path,"All","No");
+            //VulnerableQueryEliminator(path,"No");
+            //Deduplicator(path,"No");
+            //SyntacticCorrector(path,"No");
+            //SemanticCorrector(path,"No");
+            //TopicClustering(path,C1,"No");
+            //SchemaRanking(path,"No");
+            //ComplexityFilter(path,C1, 0, 20,"No");
+            //ExpertiseFilter(path,C1,"No");
+            //AnalyticStandardQuerySelector(path, C1,"No");
+            float min=(float)(trustdegredd[0])/12;
+            float max=(float)(trustdegredd[0])/12;
+            float total=0;
+
+            for(int i=0; i<C.size();i++){
+                float value=(float)(trustdegredd[i])/12;
+                if (value<min) min=value;
+                else if (value>max) max=value;
+                total=total+value;
+            }
+            cl3.setText("TrustDegree");
+            tx1.setText("Queries with higher trust degree:");
+            tx2.setText("Average trust degree:");
+            tx3.setText("Minimum trust degree:");
+            tx4.setText("Maximum trust degree:");
+
+            info1.setText("72%");
+            info2.setText(new DecimalFormat("##.##").format(total/C.size()));
+            info3.setText(new DecimalFormat("##.##").format(max));
+            info4.setText(new DecimalFormat("##.##").format(min));
+            C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\trustDegree.txt");
+
+        }
+
         DisplayTable(C);
 
         /*Put in Run Button*/
@@ -1368,79 +1557,14 @@ public class QueryExtractor {
             series.getData().add(new XYChart.Data("Logs Join", 96));}
         if(Checbx16.isSelected()) {list.add("Logs Enrichement");
             series.getData().add(new XYChart.Data("Logs Enrichement", 96));}
-        /*xAxis.setCategories(FXCollections.observableArrayList("Query Extractor","Format Converter","Robot Query Cleaner","Business-Academic Query Extractor","Vulnerable Query Eliminator","Deduplicator","Syntactic Corrector","Semantic Corrector",
-                "Topic Clustering","Schema Ranking","Complexity Filter","Expertise Filter","Analytic-Standard Query Selector","Logs Join","Logs Enrichement"));
-        */
+
         xAxis.setCategories(list);
         linechart1.getData().add(series);
-       /* xAxis.setAnimated(false);
-        yAxis.setAnimated(false);*/
 
         linechart1.getXAxis().setAnimated(false);
         linechart1.getYAxis().setAnimated(false);
 
-
-        //String path=QueriesExtractor("C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log");
-        //path=formatConverter(path);
-        //RobotQueryCleaner();
-        //BusinessAcademicQueryExtractor("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Robot Query Cleaner.txt","All");
-        //VulnerableQueryEliminator("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Business-Academic Query Extractor.txt");
-        //Deduplicator("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Analytic-Standard Query Selector.txt");
-        //SyntacticCorrector("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Deduplicator.txt");
-        //SemanticCorrector("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Syntactic Corrector.txt");
         //Collection<String> C1 = new ArrayList<String>();
-        //C1.add("All Queries");
-
-
-        //TopicClustering("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Semantic Corrector.txt",C1);
-       /* try {
-            SchemaRanking("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Topic Clustering.txt",C1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-       //ComplexityFilter("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Schema Ranking.txt");
-
-        //ExpertiseFilter("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Complexity Filter.txt",C1);
-        //AnalyticStandardQuerySelector("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Expertise Filter.txt", C1);
-        /*String path=null;
-        String pathdest=null;
-        Collection<String> C = SharedFunctions.ReadFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\ListOperators.txt");
-        for (String line:C) {
-            if(line.contains("Connection")) path=line.split(": ")[1];
-        } //"C:\\Users\\HP\\Desktop\\PFE\\LOG GEO\\SWDF.log"
-        System.out.println(path);
-        pathdest=QueriesExtractor(path);
-        System.out.println(pathdest);
-        */
-/* Le log DBpedia */
-       /* String ReadingFilePath = "C:\\Users\\HP\\Desktop\\dbp351logs\\";
-        File rep = new File(ReadingFilePath);
-        File[] fichiersJava = rep.listFiles();
-        Collection<String> CTest = new ArrayList<String>();
-
-       for (File var : fichiersJava) {
-            String path = ReadingFilePath + var.getName();
-            Collection<String> C = SharedFunctions.ReadFile(path);
-            for (String line:C){
-                if(line.toLowerCase().contains("paper") || line.toLowerCase().contains("conference") || line.toLowerCase().contains("article") || line.toLowerCase().contains("Academic")
-                        ||  line.toLowerCase().contains("demo") || line.toLowerCase().contains("talk") || line.toLowerCase().contains("social event")
-                        || line.toLowerCase().contains("workshop") || line.toLowerCase().contains("proceeding") || line.toLowerCase().contains("track")
-                        || line.toLowerCase().contains("panel") || line.toLowerCase().contains("session") || line.toLowerCase().contains("tutorial")){
-                    String SelectQ = (URLEncodedUtils.parse(line, Charset.forName("UTF-8"))).toString();
-
-                    SelectQ = QueryFixer.get().fix(SelectQ);
-
-                    if(SelectQ.indexOf("query")!=-1) {SelectQ=SelectQ.substring(SelectQ.lastIndexOf("query=")+6, SelectQ.lastIndexOf("]"));
-                    CTest.add(SelectQ);}
-                }
-            }
-           }
-        System.out.println("----------------------------------------- Finnished ----------------------------------------------------");
-       SharedFunctions.WriteInFile("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\DBpedia.txt", CTest);*/
-
-        //LogsEnrichment("C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\Analytic-Standard Query Selector.txt","C:\\Users\\HP\\Desktop\\ResultedFilesGUI\\DBpedia.txt");
-
-
 
 
 

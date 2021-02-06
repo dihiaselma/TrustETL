@@ -16,7 +16,7 @@
             <Font name="Bell MT" size="14.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="RadioDirectory" layoutX="208.0" layoutY="70.0" mnemonicParsing="false" text="Frome logs Directory ">
+      <RadioButton fx:id="RadioDirectory" layoutX="208.0" layoutY="70.0" mnemonicParsing="false" text="From logs Directory ">
          <font>
             <Font name="Bell MT" size="14.0" />
          </font>
